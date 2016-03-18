@@ -44,8 +44,10 @@ EPELPKGS+=perl-Module-Util-srpm
 EPELPKGS+=perl-PadWalker-srpm
 EPELPKGS+=perl-Proc-Wait3-srpm
 EPELPKGS+=perl-Regexp-Common-Net-CIDR-srpm
+EPELPKGS+=perl-Role-Basic-srpm
 EPELPKGS+=perl-Scope-Guard-srpm
 EPELPKGS+=perl-String-RewritePrefix-srpm
+EPELPKGS+=perl-Symbol-Global-Name-srpm
 EPELPKGS+=perl-Test-CheckManifest-srpm
 EPELPKGS+=perl-Test-HTTP-Server-Simple-srpm
 EPELPKGS+=perl-Test-Log-Dispatch-srpm
@@ -255,6 +257,8 @@ rt4:: perl-Log-Dispatch-Perl-srpm
 rt4:: perl-Plack-Middleware-Test-StashWarnings-srpm
 rt4:: perl-Plack-srpm
 rt4:: perl-Regexp-IPv6-srpm
+rt4:: perl-Role-Basic-srpm
+rt4:: perl-Symbol-Global-Name-srpm
 rt4:: perl-Test-Expert-srpm
 rt4:: perl-Test-HTTP-Server-Simple-srpm
 rt4:: perl-Text-Password-Pronounceable-srpm
