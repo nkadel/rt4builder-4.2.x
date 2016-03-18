@@ -129,7 +129,7 @@ RT4PKGS+=perl-Test-WWW-Mechanize-PSGI-srpm
 RT4PKGS+=perl-Plack-Middleware-Test-StashWarnings-srpm
 
 # Binary target
-RT4PKGS+=rt4-srpm
+RT4PKGS+=rt-srpm
 
 # Add-on utilities, can be compiled with rt3 from EPEL,
 # but use rt4 from local builds
@@ -268,8 +268,8 @@ rt4:: perl-Text-Wrapper-srpm
 rt4:: perl-Text-vFile-asData-srpm
 rt4:: perl-Tree-Simple-srpm
 
-perl-RT-Extension-CommandByMail:: rt4-srpm
-perl-RT-Extension-MandatoryFields:: rt4-srpm
+perl-RT-Extension-CommandByMail:: rt-srpm
+perl-RT-Extension-MandatoryFields:: rt-srpm
 
 # Git clone operations, not normally required
 # Targets may change
