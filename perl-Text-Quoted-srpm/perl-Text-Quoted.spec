@@ -43,7 +43,7 @@ make test
 %{_mandir}/man3/*
 
 %changelog
-* Sat MAr 19 2016 Nico Kadel-Garcia <nkadel@gmail.com> - 2.09-0.3
+* Sat Mar 19 2016 Nico Kadel-Garcia <nkadel@gmail.com> - 2.09-0.3
 - Backport to RHEL 7
 
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.09-3
