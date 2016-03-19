@@ -1,6 +1,7 @@
 Name:       perl-Module-Util
-Version:    1.08
-Release:    0.1%{?dist}
+Version:    1.09
+#Release:    7%{?dist}
+Release:    0.7%{?dist}
 # see lib/Module/Util.pm
 License:    GPL+ or Artistic
 Group:      Development/Libraries
@@ -11,11 +12,9 @@ Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: perl(Module::Build)
-BuildRequires: perl(Test::Harness)
 BuildRequires: perl(Test::More)
 
-# Run only conditionally, not defined for "mock" environments.
-%{?perl_default_filter}
+%{perl_default_filter}
 
 %description
 This module provides a few useful functions for manipulating module names.
@@ -44,10 +43,32 @@ names to relative paths.
 %{_mandir}/man[13]/*.[13]*
 
 %changelog
-* Wed Mar 13 2013 Nico Kadel-Garcia <nkadelgarcia-consultant@scholastic.com> - 1.00-0.1
-- Roll back release number to avoid update conflicts.
-- Make perl_default_filter only if defined.
-- Add BuildRequires: perl(Test::Harness).
+* Sat Mar 19 2016 Nico Kadel-Garcia <nkadel@gmail.com> - 1.09-0.1
+- Backport to RHEL 7
+
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.09-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Fri Jun 05 2015 Jitka Plesnikova <jplesnik@redhat.com> - 1.09-6
+- Perl 5.22 rebuild
+
+* Wed Aug 27 2014 Jitka Plesnikova <jplesnik@redhat.com> - 1.09-5
+- Perl 5.20 rebuild
+
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.09-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.09-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
+* Wed Jul 17 2013 Petr Pisar <ppisar@redhat.com> - 1.09-2
+- Perl 5.18 rebuild
+
+* Fri Feb 15 2013 Iain Arnell <iarnell@gmail.com> 1.09-1
+- update to latest upstream version
+
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.08-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.08-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
