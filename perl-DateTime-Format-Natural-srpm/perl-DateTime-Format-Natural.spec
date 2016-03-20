@@ -1,5 +1,5 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.03
+Version:        1.02
 Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL+ or Artistic
@@ -8,7 +8,6 @@ URL:            http://search.cpan.org/dist/DateTime-Format-Natural/
 Source0:        http://www.cpan.org/authors/id/S/SC/SCHUBIGER/DateTime-Format-Natural-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires:  glibc-common
 BuildRequires:  perl
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
@@ -82,15 +81,6 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
-* Mon Aug 03 2015 Petr Šabata <contyk@redhat.com> - 1.03-1
-- 1.03 bump
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.02-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat Jun 06 2015 Jitka Plesnikova <jplesnik@redhat.com> - 1.02-2
-- Perl 5.22 rebuild
-
 * Fri Nov 14 2014 Petr Šabata <contyk@redhat.com> - 1.02-1
 - 1.02 bump
 
