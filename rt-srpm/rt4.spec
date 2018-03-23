@@ -46,15 +46,15 @@
 # Make sure perl_testdir is defined 
 %{!?perl_testdir:%global perl_testdir %{_libexecdir}/perl5-tests}
 
-Name:		rt4
-Version:	4.4.0
-Release:	0.5%{?dist}
+Name:		rt
+Version:	4.4.2
+Release:	0.1%{?dist}
 Summary:	Request tracker 4
 
 Group:		Applications/Internet
 License:	GPLv2+
-URL:		http://www.bestpractical.com/rt
-Source0:	http://download.bestpractical.com/pub/rt/release/rt-%{version}.tar.gz
+URL:		https://www.bestpractical.com/rt
+Source0:	https://download.bestpractical.com/pub/rt/release/rt-%{version}.tar.gz
 Source1:        README.tests
 Source3:	rt4.conf.in
 Source4:	README.fedora
@@ -96,15 +96,14 @@ BuildRequires: perl(Convert::Color)
 BuildRequires: perl(Crypt::Eksblowfish)
 BuildRequires: perl(Crypt::SSLeay)
 BuildRequires: perl(Crypt::X509)
-BuildRequires: perl(Data::ICal)
-BuildRequires: perl(Date::Format)
 BuildRequires: perl(DBD::mysql) >= 2.1018
 BuildRequires: perl(DBI) >= 1.37
 BuildRequires: perl(DBIx::SearchBuilder) >= 1.66
+BuildRequires: perl(Data::ICal)
 BuildRequires: perl(Data::GUID)
-BuildRequires: perl(Data::Ical)
 BuildRequires: perl(Data::Page::Pageset)
 BuildRequires: perl(Data::Page::Extract) >= 0.02
+BuildRequires: perl(Date::Format)
 BuildRequires: perl(Date::Manip)
 BuildRequires: perl(DateTime) >= 0.44
 BuildRequires: perl(DateTime::Formate::Natural) >= 0.44
@@ -289,8 +288,11 @@ Provides: perl(RT::Tickets_SQL)
 Conflicts:	rt3
 Conflicts:	rt3-mailgate
 
+Conflicts:	rt4
+Conflicts:	rt4-mailgate
+
 # Split out. Technically, not actually necessary, but ... let's keep it for now.
-Requires: rt4-mailgate
+Requires: rt-mailgate
 
 %if 0%{?fedora}
 # Keep SpamAssassin optional
@@ -344,7 +346,7 @@ by a community of users.
 
 
 %package mailgate
-Summary: rt4's mailgate utility.
+Summary: rt mailgate utility.
 Group:   Applications/Internet
 # rpm doesn't catch these:
 Requires:	perl(Pod::Usage)
@@ -352,6 +354,8 @@ Requires:	perl(HTML::TreeBuilder)
 Requires:	perl(HTML::FormatText)
 Conflicts:	rt3
 Conflicts:	rt3-mailgate
+Conflicts:	rt4
+Conflicts:	rt4-mailgate
 Provides:	rt-mailgate = %{version}-%{release}
 
 %description mailgate
@@ -393,7 +397,8 @@ Requires:       perl(Log::Dispatch::Perl)
 %endif # devel_mode
 
 %prep
-%setup -q -n rt-%{version}
+#%setup -q -n rt-%{version}
+%setup -q
 
 install -m 0644 %{SOURCE4} .
 sed -e 's,@RT4_LOGDIR@,%{RT4_LOGDIR},' %{SOURCE5} \
@@ -647,6 +652,9 @@ fi
 %endif
 
 %changelog
+* Thu Mar 22 2018 Nico Kadel-Garcia <nkadel@gmail.com> - 4.4.2=0.1
+- Update to 4.4.2
+
 * Thu Sep 17 2015 Nico Kadel-Garcia <nkadelgarcia-consultant@scholastic.com> - 4.0.24-0.5
 - Update upstream dependencies.
 
@@ -727,7 +735,7 @@ fi
 
 * Thu Feb 02 2012 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.11-7
 - Fix shebangs.
-- Make testsuite files executable (enables rpm's perl module dep tracking).
+- Make testsuite files executable (enables rpm perl module dep tracking).
 - Build *-tests, iff devel_mode was given.
 - Misc. specfile massaging.
 
@@ -735,7 +743,7 @@ fi
 - Misc. specfile improvements.
 
 * Tue Jan 31 2012 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.11-5
-- Rewrite *-tests package (Don't use tests macros).
+- Rewrite *-tests package (Do not use tests macros).
 
 * Mon Jan 30 2012 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.11-4
 - Rename rpmbuild option with_tests into with_runtests.
@@ -771,7 +779,7 @@ fi
 - Add BR: perl(Digest::SHA).
 
 * Sat Apr 16 2011 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.10-2
-- Work-around rpm's depgenerator defect: 
+- Work-around rpm depgenerator defect: 
   Filter Requires: perl(DBIx::SearchBuilder::Handle::).
 
 * Sat Apr 16 2011 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.10-1
@@ -869,7 +877,7 @@ fi
 - Filter out R: perl(Test::Email).
 - Add perl-RT-Test package.
 - Activate --with devel_mode.
-- Don't pass --enable/disable-devel-mode to configure.
+- Do not pass --enable/disable-devel-mode to configure.
 - Add Explicit check for devel-mode deps.
 
 * Fri Jan 23 2009 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.2-1
@@ -877,17 +885,17 @@ fi
 - Preps to add a perl-RT-Test package.
 
 * Sun Nov 30 2008 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.1-2
-- Fix rt4-mailgate's %%defattr(-,root,root,-).
+- Fix rt4-mailgate %%defattr(-,root,root,-).
 
 * Wed Oct 01 2008 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.1-1
 - 1st rawhide release.
 
 * Tue Sep 23 2008 Ralf Corsépius <corsepiu@fedoraproject.org>
-- Add Provides for perl-deps rpm doesn't catch.
+- Add Provides for perl-deps rpm does not catch.
 - Treat Spamassassin optional
 
 * Tue Sep 23 2008 Ralf Corsépius <corsepiu@fedoraproject.org>
-- Don't package %%{_sysconfdir}/rt4/upgrade/*.in
+- Do not package %%{_sysconfdir}/rt4/upgrade/*.in
 - Cleanup Requires, __perl_requires, __perl_provides.
 
 * Tue Sep 23 2008 Ralf Corsépius <corsepiu@fedoraproject.org> - 3.8.1-0
