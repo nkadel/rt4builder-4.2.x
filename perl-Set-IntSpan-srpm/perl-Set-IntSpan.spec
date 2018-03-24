@@ -1,6 +1,7 @@
 Name:           perl-Set-IntSpan
 Version:        1.19
-Release:        7%{?dist}
+#Release:        7%{?dist}
+Release:        0.1%{?dist}
 Summary:        Perl module for managing sets of integers
 
 Group:          Development/Libraries
