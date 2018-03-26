@@ -9,7 +9,8 @@
 Name:		perl-JSON-PP
 Epoch:		1
 Version:	%{cpan_version}
-Release:	4%{?dist}
+#Release:	4%{?dist}
+Release:	0.1%{?dist}
 Summary:	JSON::XS compatible pure-Perl module
 License:	GPL+ or Artistic
 URL:		http://search.cpan.org/dist/JSON-PP/
