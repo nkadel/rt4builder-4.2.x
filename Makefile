@@ -16,7 +16,6 @@ REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/7/x86_64
 EPELPKGS+=google-droid-sans-fonts-srpm
 EPELPKGS+=perl-Apache-DBI-srpm
 EPELPKGS+=perl-Authen-Simple-srpm
-EPELPKGS+=perl-Business-Hours-srpm
 EPELPKGS+=perl-CGI-PSGI-srpm
 EPELPKGS+=perl-CPAN-Meta-YAML-srpm
 EPELPKGS+=perl-CSS-Minifier-srpm
