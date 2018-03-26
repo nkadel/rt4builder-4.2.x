@@ -1,17 +1,31 @@
 Name:           perl-PerlIO-eol
-Version:        0.14
-#Release:        23%{?dist}
+Version:        0.16
+#Release:        6%{?dist}
 Release:        0.1%{?dist}
 Summary:        PerlIO layer for normalizing line endings
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/PerlIO-eol/
 Source0:        http://www.cpan.org/modules/by-module/PerlIO/PerlIO-eol-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:  perl >= 1:5.7.3
+BuildRequires:  findutils
+BuildRequires:  make
+BuildRequires:  perl-interpreter
+BuildRequires:  perl-devel
+BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time:
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(XSLoader)
+# Tests:
+BuildRequires:  perl(blib)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This layer normalizes any of CR, LF, CRLF and Native into the designated
@@ -21,36 +35,52 @@ line ending. It works for both input and output handles.
 %setup -q -n PerlIO-eol-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null \;
-
-chmod -R u+rwX,go+rX,go-w $RPM_BUILD_ROOT/*
+make pure_install DESTDIR=$RPM_BUILD_ROOT
+find $RPM_BUILD_ROOT -type f -name .packlist -delete
+find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
-%defattr(-,root,root,-)
+%license LICENSE
 %doc Changes README
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/PerlIO*
 %{_mandir}/man3/*
 
 %changelog
-* Sat Mar 19 2016 Nico Kadel-Garcia <nkadel@gmail.com> - 0.14-0.1
-- Backport to RHEL 7
+* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Sun Jun 04 2017 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-4
+- Perl 5.26 rebuild
+
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
+* Sat May 14 2016 Jitka Plesnikova <jplesnik@redhat.com> - 0.16-2
+- Perl 5.24 rebuild
+
+* Mon May 02 2016 Petr Pisar <ppisar@redhat.com> - 0.16-1
+- 0.16 bump
+
+* Wed Apr 27 2016 Petr Pisar <ppisar@redhat.com> - 0.15-1
+- 0.15 bump
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
+* Wed Jan 27 2016 Petr Pisar <ppisar@redhat.com> - 0.14-24
+- Modernize spec file
 
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
