@@ -4,7 +4,7 @@ Name:           perl-%{cpan_name}
 Epoch:          1
 Version:        7.30
 #Release:        2%{?dist}
-Release:        0.1%{?dist}
+Release:        0.2%{?dist}
 Summary:        Create a module Makefile
 License:        GPL+ or Artistic
 URL:            http://search.cpan.org/dist/%{cpan_name}/
@@ -96,7 +96,8 @@ Requires:       perl(Encode)
 %if 0%{?fedora}
 Recommends:     perl(Encode::Locale)
 %endif
-Requires:       perl(ExtUtils::Command) >= 1.19
+#Requires:       perl(ExtUtils::Command) >= 1.19
+Requires:       perl(ExtUtils::Command) >= 7.30
 Requires:       perl(ExtUtils::Install) >= 1.54
 Requires:       perl(ExtUtils::Manifest) >= 1.70
 # ExtUtils::XSSymSet is not needed (VMS only)
@@ -200,24 +201,29 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 %exclude %{perl_vendorlib}/ExtUtils/MM/Utils.pm
 %{_mandir}/man1/*
 %{_mandir}/man3/*
-%exclude %{_mandir}/man3/ExtUtils::Command.*
+%exclude %{_mandir}/man3/ExtUtils::Commands.*
 %exclude %{_mandir}/man3/ExtUtils::MM::Utils.*
 
 %files -n perl-ExtUtils-Command
 %dir %{perl_vendorlib}/ExtUtils
 %{perl_vendorlib}/ExtUtils/Command.pm
+%if ! 0%{?rhel}
 %{_mandir}/man3/ExtUtils::Command.*
+%endif
 
 %files -n perl-ExtUtils-MM-Utils
 %dir %{perl_vendorlib}/ExtUtils
 %dir %{perl_vendorlib}/ExtUtils/MM
 %{perl_vendorlib}/ExtUtils/MM/Utils.pm
+%if ! 0%{?rhel}
 %{_mandir}/man3/ExtUtils::MM::Utils.*
+%endif
 
 %changelog
 * Sat Mar 24 2018 Nico Kadel-Garcia <nkadel@gmail.com>
 - Backport to RHEL 7
 - Disable checks, fail on RHEL 7
+- Disable publication of Command and MM:Utils pages for RHEL, which has them in perl base package
 
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
