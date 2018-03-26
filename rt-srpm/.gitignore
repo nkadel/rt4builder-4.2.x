@@ -1,8 +1,7 @@
+*~
+*\#*
+*.out
+*[0-9]
 *.log
 *.rpm
-*[0-9]
-*~
-epel-*
-rpmbuild
-rt4.conf
-rt4repo-*
+*/
