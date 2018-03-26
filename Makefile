@@ -7,15 +7,20 @@
 # Base directory for yum repository
 REPOBASEDIR="`/bin/pwd`"
 # Base subdirectories for RPM deployment
-REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/6/SRPMS
-REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/6/x86_64
+#REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/6/SRPMS
+#REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/6/x86_64
 REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/7/SRPMS
 REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/7/x86_64
 
 # These build with normal mock "epel-*" setups
 EPELPKGS+=google-droid-sans-fonts-srpm
+EPELPKGS+=perl-Apache-DBI-srpm
 EPELPKGS+=perl-Authen-Simple-srpm
+EPELPKGS+=perl-Business-Hours-srpm
 EPELPKGS+=perl-CGI-PSGI-srpm
+EPELPKGS+=perl-CPAN-Meta-YAML-srpm
+EPELPKGS+=perl-CSS-Minifier-srpm
+EPELPKGS+=perl-CSS-Minifier-XS-srpm
 EPELPKGS+=perl-Cache-Simple-TimedExpiry-srpm
 EPELPKGS+=perl-Calendar-Simple-srpm
 EPELPKGS+=perl-Capture-Tiny-srpm
@@ -26,14 +31,27 @@ EPELPKGS+=perl-Class-Accessor-srpm
 EPELPKGS+=perl-Class-Container-srpm
 EPELPKGS+=perl-Class-ReturnValue-srpm
 EPELPKGS+=perl-Crypt-Eksblowfish-srpm
+EPELPKGS+=perl-Crypt-X509-srpm
 EPELPKGS+=perl-DBIx-DBschema-srpm
+EPELPKGS+=perl-Data-GUID-srpm
+EPELPKGS+=perl-Data-ICal-srpm
+EPELPKGS+=perl-Data-Page-srpm
+EPELPKGS+=perl-Data-Page-Pageset-srpm
+EPELPKGS+=perl-Date-Extract-srpm
+EPELPKGS+=perl-DateTime-Format-Natural-srpm
 EPELPKGS+=perl-Devel-StackTrace-AsHTML-srpm
 EPELPKGS+=perl-Devel-StackTrace-srpm
 EPELPKGS+=perl-Digest-JHash-srpm
+EPELPKGS+=perl-Email-Address-List-srpm
+EPELPKGS+=perl-Email-Address-srpm
 EPELPKGS+=perl-Encode-srpm
 EPELPKGS+=perl-Expect-Simple-srpm
 EPELPKGS+=perl-ExtUtils-Installed-srpm
+EPELPKGS+=perl-ExtUtils-Manifest-srpm
+EPELPKGS+=perl-GDGraph-srpm
 EPELPKGS+=perl-GnuP{G-Interface-srpm
+EPELPKGS+=perl-HTML-FormatText-AndTables-srpm
+EPELPKGS+=perl-JSON-PP-srpm
 EPELPKGS+=perl-List-UtilsBy-srpm
 EPELPKGS+=perl-Locale-Maketext-Fuzzy-srpm
 EPELPKGS+=perl-Locale-Maketext-Lexicon-srpm
@@ -42,10 +60,13 @@ EPELPKGS+=perl-Log-Dispatch-Perl-srpm
 EPELPKGS+=perl-Mail-POP3Client-srpm
 EPELPKGS+=perl-Module-Util-srpm
 EPELPKGS+=perl-PadWalker-srpm
+EPELPKGS+=perl-PerlIO-eol-srpm
 EPELPKGS+=perl-Proc-Wait3-srpm
 EPELPKGS+=perl-Regexp-Common-Net-CIDR-srpm
 EPELPKGS+=perl-Role-Basic-srpm
 EPELPKGS+=perl-Scope-Guard-srpm
+EPELPKGS+=perl-Set-IntSpan-srpm
+EPELPKGS+=perl-Set-Tiny-srpm
 EPELPKGS+=perl-String-RewritePrefix-srpm
 EPELPKGS+=perl-Symbol-Global-Name-srpm
 EPELPKGS+=perl-Test-CheckManifest-srpm
@@ -68,8 +89,11 @@ RT4PKGS+=perl-Authen-Simple-Passwd-srpm
 # Now requires perl-Cache-Simple-TimedExpiry-srpm
 RT4PKGS+=perl-DBIx-SearchBuilder-srpm
 
+RT4PKGS+=perl-ExtUtils-MakeMaker-srpm
+
 # Now requires perl-Test-CheckManifest-srpm
 RT4PKGS+=perl-Hash-MoreUtils-srpm
+
 
 # Handle RHEL 6 and RHEL 7 incompatible versions of perl-Test-WWW-Mechanize
 # RHEL 7 version needs libwww_perl >= 6, RHEL 6 version fails tests on RHEL 7
@@ -77,7 +101,6 @@ RT4PKGS+=perl-Test-WWW-Mechanize-srpm
 RT4PKGS+=perl-Test-WWW-Mechanize_el6-srpm
 
 # Dependencies for perl-Test-ShardFork-srpm and perl-CHI
-RT4PKGS+=perl-ExtUtils-MakeMaker-srpm
 
 # Dependencies for perl-Test-TCP-srpm
 RT4PKGS+=perl-Test-SharedFork-srpm
@@ -89,6 +112,8 @@ RT4PKGS+=perl-Log-Any-Adapter-srpm
 RT4PKGS+=perl-Log-Any-Adapter-Dispatch-srpm
 RT4PKGS+=perl-Module-Mask-srpm
 RT4PKGS+=perl-CHI-srpm
+
+RT4PKGS+=perl-CPAN-Meta-YAML-srpm
 
 RT4PKGS+=perl-Convert-Color-srpm
 
@@ -113,6 +138,7 @@ RT4PKGS+=perl-Parallel-Scoreboard-srpm
 RT4PKGS+=perl-Parallel-Prefork-srpm
 
 RT4PKGS+=perl-Regexp-IPv6-srpm
+RT4PKGS+=perl-Scope-Upper-srpm
 RT4PKGS+=perl-Server-Starter-srpm
 RT4PKGS+=perl-Starlet-srpm
 
@@ -195,6 +221,8 @@ perl-CHI-srpm:: perl-Log-Any-Adapter-srpm
 perl-CHI-srpm:: perl-Module-Mask-srpm
 perl-CHI-srpm:: perl-String-RewritePrefix-srpm
 perl-CHI-srpm:: perl-Test-Log-Dispatch-srpm
+perl-CPAN-Meta-srpm:: perl-CPAN-Meta-YAML-srpm
+perl-CPAN-Meta-srpm:: perl-JSON-PP-srpm
 perl-Class-Accessor-Lite-srpm:: perl-Cache-Simple-TimedExpiry-srpm
 perl-Convert-Color-srpm:: perl-List-UtilsBy-srpm
 perl-DBIx-SearchBuilder-srpm:: perl-Cache-Simple-TimedExpiry-srpm
@@ -218,6 +246,7 @@ perl-Parallel-Scoreboard-srpm:: perl-Class-Accessor-Lite-srpm
 perl-Plack-srpm:: perl-Authen-Simple-Passwd-srpm
 perl-Plack-srpm:: perl-Devel-StackTrace-WithLexicals-srpm
 perl-Plack-srpm:: perl-URI-srpm
+perl-Scope-Upper-srpm:: perl-ExtUtils-MakeMaker-srpm
 perl-Server-Starter-srpm:: perl-Encode-srpm
 perl-Server-Starter-srpm:: perl-Proc-Wait3-srpm
 perl-Starlet-srpm:: perl-Parallel-Prefork-srpm
