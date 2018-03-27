@@ -110,8 +110,6 @@ RT4PKGS+=perl-Log-Any-Adapter-Dispatch-srpm
 RT4PKGS+=perl-Module-Mask-srpm
 RT4PKGS+=perl-CHI-srpm
 
-RT4PKGS+=perl-CPAN-Meta-YAML-srpm
-
 RT4PKGS+=perl-Convert-Color-srpm
 
 # Dependency for perl-Data-ICal-srpm
