@@ -70,8 +70,6 @@ EPELPKGS+=perl-Test-Simple-srpm
 EPELPKGS+=perl-Text-Password-Pronounceable-srpm
 EPELPKGS+=perl-Text-Quoted-srpm
 EPELPKGS+=perl-Text-WikiFormat-srpm
-EPELPKGS+=perl-Text-Wrapper-srpm
-EPELPKGS+=perl-Tree-Simple-srpm
 EPELPKGS+=perl-URI-srpm
 EPELPKGS+=perl-capitalization-srpm
 
@@ -289,9 +287,7 @@ rt4:: perl-Test-HTTP-Server-Simple-srpm
 rt4:: perl-Text-Password-Pronounceable-srpm
 rt4:: perl-Text-Quoted-srpm
 rt4:: perl-Text-WikiFormat-srpm
-rt4:: perl-Text-Wrapper-srpm
 rt4:: perl-Text-vFile-asData-srpm
-rt4:: perl-Tree-Simple-srpm
 
 perl-RT-Extension-CommandByMail:: rt-srpm
 perl-RT-Extension-MandatoryFields:: rt-srpm
