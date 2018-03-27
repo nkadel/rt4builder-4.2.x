@@ -36,7 +36,6 @@ EPELPKGS+=perl-Data-GUID-srpm
 EPELPKGS+=perl-Data-ICal-srpm
 EPELPKGS+=perl-Data-Page-Pageset-srpm
 EPELPKGS+=perl-Data-Page-srpm
-EPELPKGS+=perl-Devel-StackTrace-srpm
 EPELPKGS+=perl-Digest-JHash-srpm
 EPELPKGS+=perl-Email-Address-List-srpm
 EPELPKGS+=perl-Email-Address-srpm
@@ -51,7 +50,6 @@ EPELPKGS+=perl-JSON-PP-srpm
 EPELPKGS+=perl-List-UtilsBy-srpm
 EPELPKGS+=perl-Locale-Maketext-Fuzzy-srpm
 EPELPKGS+=perl-Locale-Maketext-Lexicon-srpm
-EPELPKGS+=perl-Log-Any-srpm
 EPELPKGS+=perl-Log-Dispatch-Perl-srpm
 EPELPKGS+=perl-Mail-POP3Client-srpm
 EPELPKGS+=perl-Module-Util-srpm
@@ -230,7 +228,6 @@ perl-DBIx-SearchBuilder-srpm:: perl-Cache-Simple-TimedExpiry-srpm
 perl-DBIx-SearchBuilder-srpm:: perl-capitalization-srpm
 perl-Data-ICal-srpm:: perl-Class-ReturnValue-srpm
 perl-Data-ICal-srpm:: perl-Text-vFile-asData-srpm
-perl-Devel-StackTrace-WithLexicals-srpm:: perl-Devel-StackTrace-srpm
 perl-Devel-StackTrace-WithLexicals-srpm:: perl-PadWalker-srpm
 perl-ExtUtils-MakeMaker-srpm:: perl-ExtUtils-Installed-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-HTML-Mason-srpm
