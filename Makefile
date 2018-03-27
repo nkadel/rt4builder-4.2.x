@@ -36,7 +36,6 @@ EPELPKGS+=perl-Data-GUID-srpm
 EPELPKGS+=perl-Data-ICal-srpm
 EPELPKGS+=perl-Data-Page-Pageset-srpm
 EPELPKGS+=perl-Data-Page-srpm
-EPELPKGS+=perl-Devel-StackTrace-AsHTML-srpm
 EPELPKGS+=perl-Devel-StackTrace-srpm
 EPELPKGS+=perl-Digest-JHash-srpm
 EPELPKGS+=perl-Email-Address-List-srpm
