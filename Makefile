@@ -18,8 +18,8 @@ EPELPKGS+=perl-Apache-DBI-srpm
 EPELPKGS+=perl-Authen-Simple-srpm
 EPELPKGS+=perl-CGI-PSGI-srpm
 EPELPKGS+=perl-CPAN-Meta-YAML-srpm
-EPELPKGS+=perl-CSS-Minifier-srpm
 EPELPKGS+=perl-CSS-Minifier-XS-srpm
+EPELPKGS+=perl-CSS-Minifier-srpm
 EPELPKGS+=perl-Cache-Simple-TimedExpiry-srpm
 EPELPKGS+=perl-Calendar-Simple-srpm
 EPELPKGS+=perl-Capture-Tiny-srpm
@@ -34,10 +34,8 @@ EPELPKGS+=perl-Crypt-X509-srpm
 EPELPKGS+=perl-DBIx-DBschema-srpm
 EPELPKGS+=perl-Data-GUID-srpm
 EPELPKGS+=perl-Data-ICal-srpm
-EPELPKGS+=perl-Data-Page-srpm
 EPELPKGS+=perl-Data-Page-Pageset-srpm
-EPELPKGS+=perl-Date-Extract-srpm
-EPELPKGS+=perl-DateTime-Format-Natural-srpm
+EPELPKGS+=perl-Data-Page-srpm
 EPELPKGS+=perl-Devel-StackTrace-AsHTML-srpm
 EPELPKGS+=perl-Devel-StackTrace-srpm
 EPELPKGS+=perl-Digest-JHash-srpm
@@ -84,6 +82,9 @@ EPELPKGS+=perl-capitalization-srpm
 # Needed by various packages
 
 RT4PKGS+=perl-Authen-Simple-Passwd-srpm
+
+RT4PKGS+=perl-DateTime-Format-Natural-srpm
+RT4PKGS+=perl-Date-Extract-srpm
 
 # Now requires perl-Cache-Simple-TimedExpiry-srpm
 RT4PKGS+=perl-DBIx-SearchBuilder-srpm
@@ -167,14 +168,14 @@ all:: epel-install
 # Populate rt4repo with packages that require rt4repo
 all:: rt4-install
 
-install:: epel-install rt4-install
+install:: cfg epel-install rt4-install
 
-rt4repo-6-x86_64.cfg:: rt4repo-6-x86_64.cfg.in
-	sed "s|@@@REPOBASEDIR@@@|$(REPOBASEDIR)|g" $? > $@
+.FORCE: cfg
+cfg:: epel-7-x86_64.cfg
+cfg:: rt4repo-7-x86_64.cfg
 
-rt4repo-6-x86_64.cfg:: FORCE
-	@cmp -s $@ /etc/mock/$@ || \
-		(echo Warning: /etc/mock/$@ does not match $@, exiting; exit 1)
+epel-7-x86_64.cfg:: /etc/mock/epel-7-x86_64.cfg
+	ln -sf $? $@
 
 rt4repo-7-x86_64.cfg:: rt4repo-7-x86_64.cfg.in
 	sed "s|@@@REPOBASEDIR@@@|$(REPOBASEDIR)|g" $? > $@
@@ -222,6 +223,8 @@ perl-CHI-srpm:: perl-String-RewritePrefix-srpm
 perl-CHI-srpm:: perl-Test-Log-Dispatch-srpm
 perl-CPAN-Meta-srpm:: perl-CPAN-Meta-YAML-srpm
 perl-CPAN-Meta-srpm:: perl-JSON-PP-srpm
+perl-DateTime-Format-Natural-srpm:: perl-Module-Util-srpm
+perl-Date-Extract-srpm:: perl-DateTime-Format-Natural-srpm
 perl-Class-Accessor-Lite-srpm:: perl-Cache-Simple-TimedExpiry-srpm
 perl-Convert-Color-srpm:: perl-List-UtilsBy-srpm
 perl-DBIx-SearchBuilder-srpm:: perl-Cache-Simple-TimedExpiry-srpm
