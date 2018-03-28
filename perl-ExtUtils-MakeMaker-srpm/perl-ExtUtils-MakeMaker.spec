@@ -200,14 +200,18 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 %exclude %dir %{perl_vendorlib}/ExtUtils/MM
 %exclude %{perl_vendorlib}/ExtUtils/MM/Utils.pm
 %{_mandir}/man1/*
-%{_mandir}/man3/*
+%if 0%{?rhel}
+%exclude %{_mandir}/man3/*
+%else
 %exclude %{_mandir}/man3/ExtUtils::Commands.*
 %exclude %{_mandir}/man3/ExtUtils::MM::Utils.*
+%endif
 
 %files -n perl-ExtUtils-Command
 %dir %{perl_vendorlib}/ExtUtils
 %{perl_vendorlib}/ExtUtils/Command.pm
-%if ! 0%{?rhel}
+%if 0%{?rhel}
+%else
 %{_mandir}/man3/ExtUtils::Command.*
 %endif
 
@@ -215,7 +219,8 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/ExtUtils
 %dir %{perl_vendorlib}/ExtUtils/MM
 %{perl_vendorlib}/ExtUtils/MM/Utils.pm
-%if ! 0%{?rhel}
+%if 0%{?rhel}
+%else
 %{_mandir}/man3/ExtUtils::MM::Utils.*
 %endif
 
@@ -223,7 +228,8 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 * Sat Mar 24 2018 Nico Kadel-Garcia <nkadel@gmail.com>
 - Backport to RHEL 7
 - Disable checks, fail on RHEL 7
-- Disable publication of Command and MM:Utils pages for RHEL, which has them in perl base package
+- Exclude manual pages for RHEL 7, exclusion is mucked up and Command man pages overlap with
+  base perl pages
 
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
