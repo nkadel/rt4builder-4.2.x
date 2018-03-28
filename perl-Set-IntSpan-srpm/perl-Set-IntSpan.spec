@@ -135,7 +135,7 @@ make test
 - 1.08 (#170944).
 - Specfile cleanups.
 
-* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.07-6
+* Fri Apr  8 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 1.07-6
 - rebuilt
 
 * Sun May  9 2004 Ville Skyttä <ville.skytta at iki.fi> - 0:1.07-0.fdr.5
