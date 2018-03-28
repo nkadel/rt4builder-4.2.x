@@ -95,7 +95,6 @@ RT4PKGS+=perl-Hash-MoreUtils-srpm
 # Handle RHEL 6 and RHEL 7 incompatible versions of perl-Test-WWW-Mechanize
 # RHEL 7 version needs libwww_perl >= 6, RHEL 6 version fails tests on RHEL 7
 RT4PKGS+=perl-Test-WWW-Mechanize-srpm
-RT4PKGS+=perl-Test-WWW-Mechanize_el6-srpm
 
 # Dependencies for perl-Test-ShardFork-srpm and perl-CHI
 
@@ -115,8 +114,6 @@ RT4PKGS+=perl-Convert-Color-srpm
 # Dependency for perl-Data-ICal-srpm
 RT4PKGS+=perl-Text-vFile-asData-srpm
 RT4PKGS+=perl-Data-ICal-srpm
-
-RT4PKGS+=perl-Devel-StackTrace-WithLexicals-srpm
 
 # Dependency for perl-HTML-Mason-PSGIHandler-srpm
 RT4PKGS+=perl-Plack-srpm
@@ -257,9 +254,7 @@ perl-Test-TCP-srpm:: perl-Test-SharedFork-srpm
 perl-Test-TCP-srpm:: perl-Test-Simple-srpm
 # Handle RHEL 6 and RHEL 7 incompatible versions of perl-Test-WWW-Mechanize
 perl-Test-WWW-Mechanize-PSGI-srpm:: perl-Test-WWW-Mechanize-srpm
-perl-Test-WWW-Mechanize-PSGI-srpm:: perl-Test-WWW-Mechanize_el6-srpm
 perl-Test-WWW-Mechanize-srpm:: perl-Carp-Assert-More-srpm
-perl-Test-WWW-Mechanize_el6-srpm:: perl-Carp-Assert-More-srpm
 perl-Text-vFile-asData-srpm:: perl-Class-Accessor-Chained-srpm
 
 rt4:: google-droid-sans-fonts-srpm
