@@ -43,7 +43,10 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
+# Disable tests for RHEL
+%if ! 0%{?rhel}
 make test
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
