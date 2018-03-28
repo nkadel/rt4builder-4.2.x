@@ -78,17 +78,19 @@ EPELPKGS+=perl-capitalization-srpm
 
 RT4PKGS+=perl-Authen-Simple-Passwd-srpm
 
+RT4PKGS+=perl-CPAN-Meta-srpm
+
 RT4PKGS+=perl-DateTime-Format-Natural-srpm
 RT4PKGS+=perl-Date-Extract-srpm
 
 # Now requires perl-Cache-Simple-TimedExpiry-srpm
 RT4PKGS+=perl-DBIx-SearchBuilder-srpm
 
+# New version required, with confusing dependencies
 RT4PKGS+=perl-ExtUtils-MakeMaker-srpm
 
 # Now requires perl-Test-CheckManifest-srpm
 RT4PKGS+=perl-Hash-MoreUtils-srpm
-
 
 # Handle RHEL 6 and RHEL 7 incompatible versions of perl-Test-WWW-Mechanize
 # RHEL 7 version needs libwww_perl >= 6, RHEL 6 version fails tests on RHEL 7
@@ -225,6 +227,7 @@ perl-DBIx-SearchBuilder-srpm:: perl-capitalization-srpm
 perl-Data-ICal-srpm:: perl-Class-ReturnValue-srpm
 perl-Data-ICal-srpm:: perl-Text-vFile-asData-srpm
 perl-Devel-StackTrace-WithLexicals-srpm:: perl-PadWalker-srpm
+perl-ExtUtils-MakeMaker-srpm:: perl-CPAN-Meta-srpm
 perl-ExtUtils-MakeMaker-srpm:: perl-ExtUtils-Installed-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-HTML-Mason-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-Plack-srpm
