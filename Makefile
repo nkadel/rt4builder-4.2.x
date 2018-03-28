@@ -59,6 +59,7 @@ EPELPKGS+=perl-Proc-Wait3-srpm
 EPELPKGS+=perl-Regexp-Common-Net-CIDR-srpm
 EPELPKGS+=perl-Role-Basic-srpm
 EPELPKGS+=perl-Scope-Guard-srpm
+EPELPKGS+=perl-Scope-Upper-srpm
 EPELPKGS+=perl-Set-IntSpan-srpm
 EPELPKGS+=perl-Set-Tiny-srpm
 EPELPKGS+=perl-String-RewritePrefix-srpm
@@ -66,6 +67,7 @@ EPELPKGS+=perl-Symbol-Global-Name-srpm
 EPELPKGS+=perl-Test-CheckManifest-srpm
 EPELPKGS+=perl-Test-HTTP-Server-Simple-srpm
 EPELPKGS+=perl-Test-Log-Dispatch-srpm
+EPELPKGS+=perl-Test-SharedFork-srpm
 EPELPKGS+=perl-Test-Simple-srpm
 EPELPKGS+=perl-Text-Password-Pronounceable-srpm
 EPELPKGS+=perl-Text-Quoted-srpm
@@ -99,13 +101,9 @@ RT4PKGS+=perl-Test-WWW-Mechanize-srpm
 # Dependencies for perl-Test-ShardFork-srpm and perl-CHI
 
 # Dependencies for perl-Test-TCP-srpm
-RT4PKGS+=perl-Test-SharedFork-srpm
 RT4PKGS+=perl-Test-TCP-srpm
 
 # Dependencies for perl-CHI
-## Dependency for perl-Log-Any-Adapter-Dispatch
-RT4PKGS+=perl-Log-Any-Adapter-srpm
-RT4PKGS+=perl-Log-Any-Adapter-Dispatch-srpm
 RT4PKGS+=perl-Module-Mask-srpm
 RT4PKGS+=perl-CHI-srpm
 
@@ -116,7 +114,6 @@ RT4PKGS+=perl-Text-vFile-asData-srpm
 RT4PKGS+=perl-Data-ICal-srpm
 
 # Dependency for perl-HTML-Mason-PSGIHandler-srpm
-RT4PKGS+=perl-Plack-srpm
 RT4PKGS+=perl-HTML-Mason-srpm
 RT4PKGS+=perl-HTML-Mason-PSGIHandler-srpm
 
@@ -130,7 +127,6 @@ RT4PKGS+=perl-Parallel-Scoreboard-srpm
 RT4PKGS+=perl-Parallel-Prefork-srpm
 
 RT4PKGS+=perl-Regexp-IPv6-srpm
-RT4PKGS+=perl-Scope-Upper-srpm
 RT4PKGS+=perl-Server-Starter-srpm
 RT4PKGS+=perl-Starlet-srpm
 
@@ -227,7 +223,6 @@ perl-Devel-StackTrace-WithLexicals-srpm:: perl-PadWalker-srpm
 perl-ExtUtils-MakeMaker-srpm:: perl-CPAN-Meta-srpm
 perl-ExtUtils-MakeMaker-srpm:: perl-ExtUtils-Installed-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-HTML-Mason-srpm
-perl-HTML-Mason-PSGIHandler-srpm:: perl-Plack-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-Test-Log-Dispatch-srpm
 perl-HTML-Mason-srpm:: perl-Class-Container-srpm
 perl-Hash-MoreUtils-srpm:: perl-Test-CheckManifest-srpm
@@ -237,9 +232,6 @@ perl-Module-Mask-srpm:: perl-Module-Util-srpm
 perl-Parallel-Prefork-srpm:: perl-Class-Accessor-Lite-srpm
 perl-Parallel-Prefork-srpm:: perl-Parallel-Scoreboard-srpm
 perl-Parallel-Scoreboard-srpm:: perl-Class-Accessor-Lite-srpm
-perl-Plack-srpm:: perl-Authen-Simple-Passwd-srpm
-perl-Plack-srpm:: perl-Devel-StackTrace-WithLexicals-srpm
-perl-Plack-srpm:: perl-URI-srpm
 perl-Scope-Upper-srpm:: perl-ExtUtils-MakeMaker-srpm
 perl-Server-Starter-srpm:: perl-Encode-srpm
 perl-Server-Starter-srpm:: perl-Proc-Wait3-srpm
@@ -276,7 +268,6 @@ rt4:: perl-Locale-Maketext-Fuzzy-srpm
 rt4:: perl-Locale-Maketext-Lexicon-srpm
 rt4:: perl-Log-Dispatch-Perl-srpm
 rt4:: perl-Plack-Middleware-Test-StashWarnings-srpm
-rt4:: perl-Plack-srpm
 rt4:: perl-Regexp-IPv6-srpm
 rt4:: perl-Role-Basic-srpm
 rt4:: perl-Symbol-Global-Name-srpm
