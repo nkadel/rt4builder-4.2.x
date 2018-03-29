@@ -70,7 +70,7 @@ output to STDOUT.
 
 Although, for historical reasons, the Test-Harness distribution takes its name
 from this module it now exists only to provide TAP::Harness with an interface
-that is somewhat backwards compatible with Test::Harness 2.xx. If you're
+that is somewhat backwards compatible with Test::Harness 2.xx. If you are
 writing new code consider using TAP::Harness directly instead.
 
 %prep
@@ -83,6 +83,8 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=$RPM_BUILD_ROOT
+find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
+find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
