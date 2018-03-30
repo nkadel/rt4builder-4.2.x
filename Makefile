@@ -102,6 +102,7 @@ RT4PKGS+=perl-TAP-Formatter-HTML-srpm
 RT4PKGS+=perl-Test-Harness-srpm
 # Dependendencies for perl-Module-Build-srpm
 RT4PKGS+=perl-Module-Build-srpm
+RT4PKGS+=perl-Module-Build-Deprecated-srpm
 RT4PKGS+=perl-JavaScript-Minifier-XS-srpm
 
 RT4PKGS+=perl-Net-LDAP-Server-srpm
@@ -165,6 +166,7 @@ RT4PKGS+=rt-srpm
 
 # Add-on utilities, can be compiled with rt3 from EPEL,
 # but use rt4 from local builds
+RT4PKGS+=perl-RT-Client-REST-srpm
 RT4PKGS+=perl-RT-Extension-CommandByMail-srpm
 RT4PKGS+=perl-RT-Extension-MandatoryFields-srpm
 
@@ -304,6 +306,7 @@ rt4:: perl-Text-WikiFormat-srpm
 rt4:: perl-Text-Wrapper-srpm
 rt4:: perl-Text-vFile-asData-srpm
 
+perl-RT-Client-REST-srpm:: rt-srpm
 perl-RT-Extension-CommandByMail:: rt-srpm
 perl-RT-Extension-MandatoryFields:: rt-srpm
 
