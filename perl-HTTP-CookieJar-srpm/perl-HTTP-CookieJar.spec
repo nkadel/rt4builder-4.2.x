@@ -1,6 +1,7 @@
 Name:           perl-HTTP-CookieJar
 Version:        0.006
-Release:        4%{?dist}
+#Release:        4%{?dist}
+Release:        0.1%{?dist}
 Summary:        Minimalist HTTP user agent cookie jar
 License:        ASL 2.0
 Group:          Development/Libraries
@@ -49,7 +50,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
+%if ! 0%{?rhel}
 make test
+%endif
 
 %files
 %doc Changes CONTRIBUTING LICENSE README
@@ -57,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Mar 28 2018 Nico Kadel-Garcia <nkadel@gmail.com> - 0.006=0.1
+- Disable checks on RHEL
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.006-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
