@@ -16,7 +16,6 @@ BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(YAML::Tiny)
 BuildRequires:  perl(RT) >= 4.0
 BuildRequires:  perl(RT::Test) >= 4.0
-BuildRequires:  rt4
 Requires:       perl(RT)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
