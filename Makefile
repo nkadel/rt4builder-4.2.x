@@ -1,7 +1,7 @@
 #
 # Makefile - build wrapper for Rt 4 on RHEL 6
 #
-#	git clone RHEL 6 SRPM building tools from
+#	git clone RHEL 7 SRPM building tools from
 #	https://github.com/nkadel/rt4repo
 
 # Base directory for yum repository
@@ -41,18 +41,20 @@ EPELPKGS+=perl-Email-Address-List-srpm
 EPELPKGS+=perl-Email-Address-srpm
 EPELPKGS+=perl-Encode-srpm
 EPELPKGS+=perl-Expect-Simple-srpm
-EPELPKGS+=perl-ExtUtils-Installed-srpm
-EPELPKGS+=perl-ExtUtils-Manifest-srpm
 EPELPKGS+=perl-GDGraph-srpm
 EPELPKGS+=perl-GnuP{G-Interface-srpm
-EPELPKGS+=perl-HTML-FormatText-AndTables-srpm
+EPELPKGS+=perl-HTML-FormatText-WithLinks-AndTables-srpm
+EPELPKGS+=perl-HTTP-Parser-XS-srpm
+EPELPKGS+=perl-IPC-Run-SafeHandles-srpm
 EPELPKGS+=perl-JSON-PP-srpm
 EPELPKGS+=perl-List-UtilsBy-srpm
 EPELPKGS+=perl-Locale-Maketext-Fuzzy-srpm
 EPELPKGS+=perl-Locale-Maketext-Lexicon-srpm
 EPELPKGS+=perl-Log-Dispatch-Perl-srpm
-EPELPKGS+=perl-Mail-POP3Client-srpm
 EPELPKGS+=perl-Module-Util-srpm
+EPELPKGS+=perl-Net-DNS-Lite-srpm
+EPELPKGS+=perl-Net-LDAP-SID-srpm
+EPELPKGS+=perl-Net-LDAP-Server-srpm
 EPELPKGS+=perl-PadWalker-srpm
 EPELPKGS+=perl-PerlIO-eol-srpm
 EPELPKGS+=perl-Proc-Wait3-srpm
@@ -72,14 +74,18 @@ EPELPKGS+=perl-Test-Simple-srpm
 EPELPKGS+=perl-Text-Password-Pronounceable-srpm
 EPELPKGS+=perl-Text-Quoted-srpm
 EPELPKGS+=perl-Text-WikiFormat-srpm
+EPELPKGS+=perl-Text-Wrapper-srpm
 EPELPKGS+=perl-URI-srpm
+EPELPKGS+=perl-accessors-srpm
 EPELPKGS+=perl-capitalization-srpm
+EPELPKGS+=perl-inc-latest-srpm
+EPELPKGS+=publicsuffixlist-srpm
 
 # Require customized rt4repo local repository for dependencies
 # Needed by various packages
 
 RT4PKGS+=perl-Authen-Simple-Passwd-srpm
-
+RT4PKGS+=perl-Business-Hours-srpm
 RT4PKGS+=perl-CPAN-Meta-srpm
 
 RT4PKGS+=perl-DateTime-Format-Natural-srpm
@@ -88,17 +94,19 @@ RT4PKGS+=perl-Date-Extract-srpm
 # Now requires perl-Cache-Simple-TimedExpiry-srpm
 RT4PKGS+=perl-DBIx-SearchBuilder-srpm
 
-# New version required, with confusing dependencies
-RT4PKGS+=perl-ExtUtils-MakeMaker-srpm
-
 # Now requires perl-Test-CheckManifest-srpm
 RT4PKGS+=perl-Hash-MoreUtils-srpm
 
-# Handle RHEL 6 and RHEL 7 incompatible versions of perl-Test-WWW-Mechanize
-# RHEL 7 version needs libwww_perl >= 6, RHEL 6 version fails tests on RHEL 7
-RT4PKGS+=perl-Test-WWW-Mechanize-srpm
+# Dependencies for perl-Test-Harness-srpm
+RT4PKGS+=perl-TAP-Formatter-HTML-srpm
+RT4PKGS+=perl-Test-Harness-srpm
+# Dependendencies for perl-Module-Build-srpm
+RT4PKGS+=perl-Module-Build-srpm
+RT4PKGS+=perl-JavaScript-Minifier-XS-srpm
 
-# Dependencies for perl-Test-ShardFork-srpm and perl-CHI
+RT4PKGS+=perl-Net-LDAP-Server-srpm
+
+RT4PKGS+=perl-Test-WWW-Mechanize-srpm
 
 # Dependencies for perl-Test-TCP-srpm
 RT4PKGS+=perl-Test-TCP-srpm
@@ -108,6 +116,10 @@ RT4PKGS+=perl-Module-Mask-srpm
 RT4PKGS+=perl-CHI-srpm
 
 RT4PKGS+=perl-Convert-Color-srpm
+
+# Dependencies for perl-Module-Util-srpm
+RT4PKGS+=perl-TAP-Formatter-HTML-srpm
+RT4PKGS+=perl-Module-Util-srpm
 
 # Dependency for perl-Data-ICal-srpm
 RT4PKGS+=perl-Text-vFile-asData-srpm
@@ -120,7 +132,16 @@ RT4PKGS+=perl-HTML-Mason-PSGIHandler-srpm
 RT4PKGS+=perl-HTML-Quoted-srpm
 RT4PKGS+=perl-HTML-RewriteAttributes-srpm
 
+#Dependencies for perl-HTTP-CookieHar-srpm
+RT4PKGS+=perl-Mozilla-PublicSuffix-srpm
+# Dependencies for perl-Furl-srpm
+RT4PKGS+=perl-HTTP-CookieJar-srpm
 RT4PKGS+=perl-HTTP-Server-Simple-Mason-srpm
+# Dependencies for perl-File-Dropbox-srpm
+RT4PKGS+=perl-Furl-srpm
+RT4PKGS+=perl-File-Dropbox-srpm
+
+RT4PKGS+=perl-Net-LDAP-Server-Test-srpm
 
 # Dependency for perl-Parallel-Prefork-srpm
 RT4PKGS+=perl-Parallel-Scoreboard-srpm
@@ -132,15 +153,12 @@ RT4PKGS+=perl-Starlet-srpm
 
 RT4PKGS+=perl-Test-Expert-srpm
 
-# Dependencies for perl-Test-Email-srpm
-RT4PKGS+=perl-Expect-Simple-srpm
-RT4PKGS+=perl-Test-Email-srpm
-
 RT4PKGS+=perl-Test-HTTP-Server-Simple-StashWarnings-srpm
 
 # Needed for rt4-Test building
 RT4PKGS+=perl-Test-WWW-Mechanize-PSGI-srpm
-RT4PKGS+=perl-Plack-Middleware-Test-StashWarnings-srpm
+
+RT4PKGS+=perl-Tree-Simple-srpm
 
 # Binary target
 RT4PKGS+=rt-srpm
@@ -201,8 +219,8 @@ rt4-install:: FORCE
 
 # Dependencies
 perl-Authen-Simple-Passwd-srpm:: perl-Authen-Simple-srpm
+perl-Business-Hours-srpm:: perl-Set-IntSpan-srpm
 perl-CHI-srpm:: perl-Digest-JHash-srpm
-perl-CHI-srpm:: perl-ExtUtils-MakeMaker-srpm
 perl-CHI-srpm:: perl-Hash-MoreUtils-srpm
 perl-CHI-srpm:: perl-Log-Any-Adapter-Dispatch-srpm
 perl-CHI-srpm:: perl-Log-Any-Adapter-srpm
@@ -220,34 +238,39 @@ perl-DBIx-SearchBuilder-srpm:: perl-capitalization-srpm
 perl-Data-ICal-srpm:: perl-Class-ReturnValue-srpm
 perl-Data-ICal-srpm:: perl-Text-vFile-asData-srpm
 perl-Devel-StackTrace-WithLexicals-srpm:: perl-PadWalker-srpm
-perl-ExtUtils-MakeMaker-srpm:: perl-CPAN-Meta-srpm
-perl-ExtUtils-MakeMaker-srpm:: perl-ExtUtils-Installed-srpm
+perl-Furl-srpm:: perl-HTTP-CookieJar-srpm
+perl-Furl-srpm:: perl-HTTP-Parser-XS-srpm
+perl-Furl-srpm:: perl-HTTP-Server-Simple-Mason-srpm
+perl-Furl-srpm:: perl-Net-DNS-Lite-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-HTML-Mason-srpm
 perl-HTML-Mason-PSGIHandler-srpm:: perl-Test-Log-Dispatch-srpm
 perl-HTML-Mason-srpm:: perl-Class-Container-srpm
+perl-HTTP-CookieJar-srpm:: perl-Mozilla-PublicSuffix-srpm
 perl-Hash-MoreUtils-srpm:: perl-Test-CheckManifest-srpm
 perl-Log-Any-Aapter-srpm:: perl-Log-Any-srpm
 perl-Log-Any-Adapter-Dispatch-srpm:: perl-Log-Any-Adapter-srpm
+perl-Module-Build-srpm:: perl-inc-latest-srpm
 perl-Module-Mask-srpm:: perl-Module-Util-srpm
+perl-Mozilla-PublicSuffix-srpm:: publicsuffixlist-srpm
+perl-Net-LDAP-Server-Test-srpm:: perl-Net-LDAP-SID-srpm
+perl-Net-LDAP-Server-Test-srpm:: perl-Net-LDAP-Server-srpm
 perl-Parallel-Prefork-srpm:: perl-Class-Accessor-Lite-srpm
 perl-Parallel-Prefork-srpm:: perl-Parallel-Scoreboard-srpm
 perl-Parallel-Scoreboard-srpm:: perl-Class-Accessor-Lite-srpm
-perl-Scope-Upper-srpm:: perl-ExtUtils-MakeMaker-srpm
 perl-Server-Starter-srpm:: perl-Encode-srpm
 perl-Server-Starter-srpm:: perl-Proc-Wait3-srpm
 perl-Starlet-srpm:: perl-Parallel-Prefork-srpm
 perl-Starlet-srpm:: perl-Server-Starter-srpm
-perl-Test-Email-srpm:: perl-Expect-Simple-srpm
-perl-Test-Email-srpm:: perl-Mail-POP3Client-srpm
+perl-TAP-Formatter-HTML-srpm:: perl-accessors-srpm
 perl-Test-Expert-srpm:: perl-Class-Accessor-Chained-srpm
+perl-Test-Expert-srpm:: perl-Expect-Simple-srpm
 perl-Test-HTTP-Server-Simple-StashWarnings-srpm:: perl-Test-HTTP-Server-Simple-srpm
-perl-Test-SharedFork-srpm:: perl-ExtUtils-MakeMaker-srpm
 perl-Test-TCP-srpm:: perl-Test-SharedFork-srpm
 perl-Test-TCP-srpm:: perl-Test-Simple-srpm
-# Handle RHEL 6 and RHEL 7 incompatible versions of perl-Test-WWW-Mechanize
 perl-Test-WWW-Mechanize-PSGI-srpm:: perl-Test-WWW-Mechanize-srpm
 perl-Test-WWW-Mechanize-srpm:: perl-Carp-Assert-More-srpm
 perl-Text-vFile-asData-srpm:: perl-Class-Accessor-Chained-srpm
+perl-Tree-Simple-srpm:: perl-Test-Simple-srpm
 
 rt4:: google-droid-sans-fonts-srpm
 rt4:: perl-CGI-PSGI-srpm
@@ -264,6 +287,8 @@ rt4:: perl-HTML-Mason-srpm
 rt4:: perl-HTML-Quoted-srpm
 rt4:: perl-HTML-RewriteAttributes-srpm
 rt4:: perl-HTTP-Server-Simple-Mason-srpm
+rt4:: perl-IPC-Run-SafeHandles-srpm
+rt4:: perl-JavaScript-Minifier-XS-srpm
 rt4:: perl-Locale-Maketext-Fuzzy-srpm
 rt4:: perl-Locale-Maketext-Lexicon-srpm
 rt4:: perl-Log-Dispatch-Perl-srpm
@@ -276,6 +301,7 @@ rt4:: perl-Test-HTTP-Server-Simple-srpm
 rt4:: perl-Text-Password-Pronounceable-srpm
 rt4:: perl-Text-Quoted-srpm
 rt4:: perl-Text-WikiFormat-srpm
+rt4:: perl-Text-Wrapper-srpm
 rt4:: perl-Text-vFile-asData-srpm
 
 perl-RT-Extension-CommandByMail:: rt-srpm
