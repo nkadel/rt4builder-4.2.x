@@ -170,6 +170,9 @@ RT4PKGS+=perl-RT-Client-REST-srpm
 RT4PKGS+=perl-RT-Extension-CommandByMail-srpm
 RT4PKGS+=perl-RT-Extension-MandatoryFields-srpm
 
+# Set up config files for local rt4repo and mock
+all:: cfg
+
 # Populate rt4repo with packages compatible with just EPEL
 all:: epel-install
 
@@ -200,6 +203,7 @@ rt4repo.repo:: FORCE
 	@cmp -s $@ /etc/yum.repos.d/$@ || \
 		(echo Warning: /etc/yum.repos.d/$@ does not match $@, exiting; exit 1)
 
+epel:: cfg
 epel:: $(EPELPKGS)
 
 $(REPOBASESUBDIRS)::
@@ -212,6 +216,7 @@ epel-install:: FORCE
 		(cd $$name && $(MAKE) all install) || exit 1; \
 	done
 
+rt4:: cfg
 rt4:: $(RT4PKGS)
 
 rt4-install:: FORCE
