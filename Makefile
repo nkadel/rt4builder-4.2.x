@@ -191,10 +191,6 @@ epel-7-x86_64.cfg:: /etc/mock/epel-7-x86_64.cfg
 rt4repo-7-x86_64.cfg:: rt4repo-7-x86_64.cfg.in
 	sed "s|@@@REPOBASEDIR@@@|$(REPOBASEDIR)|g" $? > $@
 
-rt4repo-7-x86_64.cfg:: FORCE
-	@cmp -s $@ /etc/mock/$@ || \
-		(echo Warning: /etc/mock/$@ does not match $@, exiting; exit 1)
-
 # Used for make build with local components
 rt4repo.repo:: rt4repo.repo.in
 	sed "s|@@@REPOBASEDIR@@@|$(REPOBASEDIR)|g" $? > $@
