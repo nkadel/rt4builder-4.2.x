@@ -5,6 +5,13 @@ License:  GPLv3
 Maintainer:   Nico Kadel-Garcia
 Maintainer Email: nkadel@gmail.com
 
+Note:
+    This system builds RT version 4 and all its dependencies for RHEL
+    7 based on the current release in Fedora. It also builds some
+    added RT perl modules for enduser use. It's suitable for replacing
+    the older "rt3" package in EPEL, but is not laid out identically,
+    so it is not a drop-in replacement.
+
 Usage:
     make install - build, and install for local access, the
     full build requirements for RT4. This is the normal bootstrap
@@ -40,12 +47,3 @@ Requirements: This toolkit requires the following tools:
 
      * PATH setting or an alias that accfess "/usr/bin/mock", not
        "/usr/sbin/mock".
-
-     * "sudo" Permissions to clear the mock cache for rt4repo build
-       environments without having to supply passwords. For example:
-
-	 %mock ALL=(ALL)	NOPASSWD: /bin/touch /etc/mock/rt4repo-6-x86_64.cfg
-	 %mock ALL=(ALL)	NOPASSWD: /bin/touch /etc/mock/rt4repo-7-x86_64.cfg
-
-	 # The "NOPASSWD" has to be added after PASSWD for admins
-	 adminuser	ALL=(ALL)	PASSWD: ALL, NOPASSWD: MOCKRT4TOUCH
