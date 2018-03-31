@@ -34,7 +34,6 @@ EPELPKGS+=perl-Crypt-X509-srpm
 EPELPKGS+=perl-DBIx-DBschema-srpm
 EPELPKGS+=perl-Data-GUID-srpm
 EPELPKGS+=perl-Data-ICal-srpm
-EPELPKGS+=perl-Data-Page-Pageset-srpm
 EPELPKGS+=perl-Data-Page-srpm
 EPELPKGS+=perl-Digest-JHash-srpm
 EPELPKGS+=perl-Email-Address-List-srpm
@@ -87,6 +86,8 @@ EPELPKGS+=publicsuffixlist-srpm
 RT4PKGS+=perl-Authen-Simple-Passwd-srpm
 RT4PKGS+=perl-Business-Hours-srpm
 RT4PKGS+=perl-CPAN-Meta-srpm
+
+RT4PKGS+=perl-Data-Page-Pageset-srpm
 
 RT4PKGS+=perl-DateTime-Format-Natural-srpm
 RT4PKGS+=perl-Date-Extract-srpm
@@ -147,6 +148,8 @@ RT4PKGS+=perl-Net-LDAP-Server-Test-srpm
 # Dependency for perl-Parallel-Prefork-srpm
 RT4PKGS+=perl-Parallel-Scoreboard-srpm
 RT4PKGS+=perl-Parallel-Prefork-srpm
+
+RT4PKGS+=perl-Plack-Middleware-Test-StashWarnings-srpm
 
 RT4PKGS+=perl-Regexp-IPv6-srpm
 RT4PKGS+=perl-Server-Starter-srpm
