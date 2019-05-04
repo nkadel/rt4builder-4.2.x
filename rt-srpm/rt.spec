@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2005-2017, Ralf Corsepius, Ulm, Germany.
+# Copyright (c) 2005-2018, Ralf Corsepius, Ulm, Germany.
 # This file and all modifications and additions to the pristine
 # package are under the same license as the package itself.
 #
@@ -38,9 +38,8 @@
 %global RT_STATICDIR		%{_datadir}/%{name}/static
 
 Name:		rt
-Version:	4.4.2
-#Release:	1%{?dist}
-Release:	0.11%{?dist}
+Version:	4.4.4
+Release:	0%{?dist}
 Summary:	Request tracker
 
 Group:		Applications/Internet
@@ -107,7 +106,7 @@ BuildRequires: perl(Email::Address) >= 1.908
 BuildRequires: perl(Email::Address::List) >= 0.02
 BuildRequires: perl(Encode) >= 2.64
 BuildRequires: perl(Errno)
-%{?with_devel_mode:BuildRequires: perl(File::Find)}
+BuildRequires: perl(File::Find)
 BuildRequires: perl(File::Glob)
 BuildRequires: perl(File::ShareDir)
 BuildRequires: perl(File::Spec) >= 0.8
@@ -133,6 +132,7 @@ BuildRequires: perl(HTML::TreeBuilder)
 BuildRequires: perl(HTTP::Request::Common)
 BuildRequires: perl(HTTP::Server::Simple) >= 0.34
 BuildRequires: perl(HTTP::Server::Simple::Mason) >= 0.09
+BuildRequires: perl(HTTP::Status)
 BuildRequires: perl(IPC::Run)
 BuildRequires: perl(IPC::Run3)
 BuildRequires: perl(IPC::Run::SafeHandles)
@@ -360,8 +360,7 @@ Requires:	perl(Mojo::DOM)
 %endif # devel_mode
 
 %prep
-#%setup -q -n rt-%{version}
-%setup -q
+%setup -q -n rt-%{version}
 
 sed -e 's,@RT_CACHEDIR@,%{RT_CACHEDIR},' %{SOURCE3} \
   > README.fedora
@@ -370,7 +369,7 @@ sed -e 's,@RT_LOGDIR@,%{RT_LOGDIR},' %{SOURCE4} \
 
 # remove auto*generated files
 find -name '*.in' | \
-while read a; do b=$(echo "$a" | sed -e 's,\.in$,,'); rm "$b"; done
+while read a; do b=$(echo "$a" | sed -e 's,\.in$,,'); rm -f "$b"; done
 
 %patch1 -p1
 %patch2 -p1
@@ -416,6 +415,8 @@ Makefile.in
 sed -i -e 's,$(RT_ETC_PATH)/upgrade,%{_datadir}/%{name}/upgrade,g' Makefile.in
 
 %build
+# Added for rt-4.4.4
+%{__autoconf}
 %configure \
 --with-apachectl=/usr/sbin/apachectl \
 --with-web-user=apache --with-web-group=apache \
@@ -463,7 +464,7 @@ done
 make install DESTDIR=${RPM_BUILD_ROOT}
 
 # Work-around to regression in rpm >= 4.12.90:
-# Can not mix %%doc with directly installed docs, anymore.
+# Cannot mix %%doc with directly installed docs, anymore.
 # Need to install all files directly.
 install -m 644 README README.fedora ${RPM_BUILD_ROOT}%{_pkgdocdir}
 
@@ -580,7 +581,8 @@ fi
 %exclude %{_datadir}/%{name}/upgrade/*/*.SQLite
 %{?!with_mysql:%exclude %{_sysconfdir}/%{name}/*.mysql}
 %{?!with_mysql:%exclude %{_datadir}/%{name}/upgrade/*/*.mysql}
-%config(noreplace) %attr(0640,apache,apache) %{_sysconfdir}/%{name}/RT_*
+%attr(0750,apache,apache) %{_sysconfdir}/%{name}/RT_SiteConfig.d
+%config(noreplace) %attr(0640,apache,apache) %{_sysconfdir}/%{name}/RT_*.pm
 
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 
@@ -617,10 +619,30 @@ fi
 %endif
 
 %changelog
-* Thu Mar 29 2018 Nico Kadel-Garcia <nkadel@gmail.com> - 4.4.2=0.1
-- Roll back to compatibility with RHEL 7
+* Sat May 4 2019  Nico Kadel-Garcia <nkadel@gmail.com> - 4.4.4-0
+- Update to 4.4.4
 - Obsolete rt4 packages as well as rt3 packages
-- Update Source URLs to use https://
+
+* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sat Nov 24 2018 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.3-2
+- Change permissions on /etc/rt/RT_SiteConfig.d to 0750 (RHBZ#1652560).
+
+* Sun Jul 22 2018 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.3-1
+- Update to rt-4.4.3.
+- Modernize spec.
+- BR: perl(File::Find), perl(HTTP::Status).
+- Rebase patches.
+
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Sat Jun 30 2018 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.2-3
+- Perl 5.28 rebuild
+
+* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
 * Thu Jul 27 2017 Ralf Corsépius <corsepiu@fedoraproject.org> - 4.4.2-1
 - Update to rt-4.4.2.
