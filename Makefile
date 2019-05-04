@@ -5,12 +5,15 @@
 #	https://github.com/nkadel/rt4repo
 
 # Base directory for yum repository
-REPOBASEDIR="`/bin/pwd`"
-# Base subdirectories for RPM deployment
-#REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/6/SRPMS
-#REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/6/x86_64
-REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/7/SRPMS
-REPOBASESUBDIRS+=$(REPOBASEDIR)/rt4repo/7/x86_64
+REPOBASE=file://$(PWD)
+#REPOBASE=http://localhost
+
+REPOS+=rt4repo/el/7
+REPOS+=rt4repo/fedora/29
+REPOS+=rt4repo/fedora/30
+REPOS+=rt4repo/fedora/rawhide
+
+REPODIRS := $(patsubst %,%/x86_64,$(REPOS)) $(patsubst %,%/SRPMS,$(REPOS))
 
 # These build with normal mock "epel-*" setups
 EPELPKGS+=google-droid-sans-fonts-srpm
@@ -176,6 +179,8 @@ RT4PKGS+=perl-RT-Extension-MandatoryFields-srpm
 # Set up config files for local rt4repo and mock
 all:: cfg
 
+all:: dirs
+
 # Populate rt4repo with packages compatible with just EPEL
 all:: epel-install
 
@@ -186,17 +191,57 @@ install:: cfg epel-install rt4-install
 
 .FORCE: cfg
 cfg:: epel-7-x86_64.cfg
+cfg:: fedora-30-x86_64.cfg
 cfg:: rt4repo-7-x86_64.cfg
+cfg:: rt4repo-f30-x86_64.cfg
 
 epel-7-x86_64.cfg:: /etc/mock/epel-7-x86_64.cfg
 	ln -sf $? $@
 
-rt4repo-7-x86_64.cfg:: rt4repo-7-x86_64.cfg.in
-	sed "s|@@@REPOBASEDIR@@@|$(REPOBASEDIR)|g" $? > $@
+fedora-30-x86_64.cfg:: /etc/mock/fedora-30-x86_64.cfg
+	ln -sf $? $@
+
+rt4repo-7-x86_64.cfg: epel-7-x86_64.cfg
+	@echo Generating $@ from $?
+	@cat $? > $@
+	@sed -i 's/epel-7-x86_64/rt4repo-7-x86_64/g' $@
+	@echo '"""' >> $@
+	@echo >> $@
+	@echo '[rt4repo]' >> $@
+	@echo 'name=rt4repo' >> $@
+	@echo 'enabled=1' >> $@
+	@echo 'baseurl=$(REPOBASE)/rt4repo/el/7/x86_64/' >> $@
+	@echo 'failovermethod=priority' >> $@
+	@echo 'skip_if_unavailable=False' >> $@
+	@echo 'metadata_expire=3' >> $@
+	@echo 'gpgcheck=0' >> $@
+	@echo '#cost=2000' >> $@
+	@echo '"""' >> $@
+	@uniq -u $@ > $@.out
+	@mv $@.out $@
+
+rt4repo-f30-x86_64.cfg: fedora-30-x86_64.cfg
+	@echo Generating $@ from $?
+	@cat $? > $@
+	@sed -i 's/fedora-30-x86_64/rt4repo-f30-x86_64/g' $@
+	@echo '"""' >> $@
+	@echo >> $@
+	@echo '[rt4repo]' >> $@
+	@echo 'name=rt4repo' >> $@
+	@echo 'enabled=1' >> $@
+	@echo 'baseurl=$(REPOBASE)/rt4repo/fedora/30/x86_64/' >> $@
+	@echo 'failovermethod=priority' >> $@
+	@echo 'skip_if_unavailable=False' >> $@
+	@echo 'metadata_expire=3' >> $@
+	@echo 'gpgcheck=0' >> $@
+	@echo '#cost=2000' >> $@
+	@echo '"""' >> $@
+	@uniq -u $@ > $@.out
+	@mv $@.out $@
 
 # Used for make build with local components
 rt4repo.repo:: rt4repo.repo.in
-	sed "s|@@@REPOBASEDIR@@@|$(REPOBASEDIR)|g" $? > $@
+	sed "s|@@@REPOBASE@@@|$(REPOBASE)|g" $? > $@
 
 rt4repo.repo:: FORCE
 	@cmp -s $@ /etc/yum.repos.d/$@ || \
@@ -205,10 +250,12 @@ rt4repo.repo:: FORCE
 epel:: cfg
 epel:: $(EPELPKGS)
 
-$(REPOBASESUBDIRS)::
-	mkdir -p $@
+dirs:: $(REPODIRS)
+$(REPODIRS)::
+	install -d -m 755 $@
+	createrepo -q $@
 
-epel-install:: $(REPOBASESUBDIRS)
+epel-install:: $(REPODIRS)
 
 epel-install:: FORCE
 	@for name in $(EPELPKGS); do \
@@ -373,4 +420,3 @@ publish:: FORCE
 	done
 
 FORCE::
-
