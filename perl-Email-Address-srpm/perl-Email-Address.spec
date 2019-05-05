@@ -1,6 +1,7 @@
 Name:           perl-Email-Address
 Version:        1.908
-Release:        6%{?dist}
+#Release:        6%%{?dist}
+Release:        0%{?dist}
 Summary:        RFC 2822 Address Parsing and Creation
 
 Group:          Development/Libraries
@@ -57,6 +58,9 @@ make test
 
 
 %changelog
+* Sun 5 May 2019 Nico Kadel-Garcia <nkadel@gmail.com> - 1.908-0
+- Backport to RHEL
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.908-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
