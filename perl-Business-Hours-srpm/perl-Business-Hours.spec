@@ -1,21 +1,23 @@
+# license is not enabled on older operating systems
+%{!?_licensedir:%global license %%doc}
+
 Summary: 	Calculate business hours in a time period
 Name: 		perl-Business-Hours
-Version: 	0.12
-#Release: 	12%{?dist}
-Release: 	0.1%{?dist}
+Version: 	0.13
+#Release: 	2%%{?dist}
+Release: 	0%{?dist}
 License: 	GPL+ or Artistic
-Group: 		Development/Libraries
-URL: 		http://search.cpan.org/dist/Business-Hours/
+URL: 		https://metacpan.org/release/Business-Hours
 
-Source0: http://search.cpan.org/CPAN/authors/id/R/RU/RUZ/Business-Hours-%{version}.tar.gz
+Source0: https://cpan.metacpan.org/authors/id/B/BP/BPS/Business-Hours-%{version}.tar.gz
 BuildArch: 	noarch
 
 Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Set::IntSpan) >= 1.12
 
-BuildRequires:	coreutils
-BuildRequires:	findutils
-BuildRequires:	make
+BuildRequires:	%{__perl}
+BuildRequires:	%{__make}
+
 BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
@@ -43,17 +45,17 @@ number of business hours between arbitrary dates.
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+%{__make} %{?_smp_mflags}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+%{__make} pure_install DESTDIR=$RPM_BUILD_ROOT
+# Clean up dangling .packlist
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-#find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-make test
+%{__make} test
 
 %files
 %license LICENSE
@@ -62,8 +64,24 @@ make test
 %{_mandir}/man3/*
 
 %changelog
-* Wed Mar 28 2018 Nico Kadel-Garcia <nkadel@gmail.com> - 0.12-0.1
-- Add cleanup for .packlist
+* Sat May 4 2019 Nico Kadel-Garcia <nkadel@gmail.com> - 0.13-0
+- Clear .packlist from RPM_BUILD_ROOT for RHEL 7
+
+* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Mon Jan 14 2019 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.13-1
+- Update to 0.13.
+- Modernize spec.
+
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Thu Jun 28 2018 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-14
+- Perl 5.28 rebuild
+
+* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
