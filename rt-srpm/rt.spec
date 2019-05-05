@@ -68,6 +68,7 @@ Obsoletes:	rt4 < %{version}-%{release}
 Provides:	rt4 = %{version}-%{release}
 
 # This list is alpha sorted
+BuildRequires: autoconf
 BuildRequires: perl-generators
 BuildRequires: perl(Apache::DBI)
 BuildRequires: perl(Apache::Session) >= 1.53
@@ -103,7 +104,7 @@ BuildRequires: perl(Digest::base)
 BuildRequires: perl(Digest::MD5) >= 2.27
 # Email::Address < 1.908 is vulnerable to CVE-2015-7686
 BuildRequires: perl(Email::Address) >= 1.908
-BuildRequires: perl(Email::Address::List) >= 0.02
+BuildRequires: perl(Email::Address::List) >= 0.06
 BuildRequires: perl(Encode) >= 2.64
 BuildRequires: perl(Errno)
 BuildRequires: perl(File::Find)
@@ -361,6 +362,9 @@ Requires:	perl(Mojo::DOM)
 
 %prep
 %setup -q -n rt-%{version}
+
+# Lower Email::Address dependency version
+sed -i.version 's/^Email::Address 1.912/Email::Address 1.908/g' sbin/rt-test-dependencies.in
 
 sed -e 's,@RT_CACHEDIR@,%{RT_CACHEDIR},' %{SOURCE3} \
   > README.fedora
